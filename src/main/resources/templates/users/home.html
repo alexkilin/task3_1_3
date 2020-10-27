@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello! This is Hello page of CRUD App!!!</title>
+
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+Hello page!
+<a href="/admin/create">Create</a> or
+<a href="/admin/users">List All</a> or
+<a href="/user">Infopage</a> or
+<a href="/logout">Logout</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>FIRSTNAME</th>
+        <th>LASTNAME</th>
+        <th>AGE</th>
+        <th>E-MAIL</th>
+        <th>USERNAME</th>
+        <th>PASSWORD</th>
+        <th>ROLES</th>
+        <th>ACTION</th>
+    </tr>
+    <tr th:each="user : ${listOfUsers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+
+
+        <td>
+            <table>
+                <tbody>
+                <tr th:each="role : ${user.roles}">
+                    <td th:text="${role.role}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+
+
+        <td>
+            <table>
+                <tbody>
+                <tr>
+                    <td><a th:href="'/admin/updateuser?id=' + ${user.id}"
+                           th:text="Update" >Update</a></td>
+                    <td><a th:href="'/admin/delete/'+${user.id}" th:text="Delete" >Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+
