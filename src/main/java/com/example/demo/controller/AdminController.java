@@ -3,6 +3,7 @@ import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,23 @@ public class AdminController {
     @GetMapping(value = "/users")
     public String getAll(Model model) {
         List<User> users = service.getAllUsers();
+
+        User currentUser = service.getUserByUserName (((UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUsername());
+
+        Set<Role> roles = currentUser.getRoles();
+        StringBuilder rolesDTO = new StringBuilder();
+        for (Role role :roles
+             ) {
+              rolesDTO.append(role.getRole().substring(5) + " ");
+        }
+        User user = new User();
+        User newuser = new User();
+        model.addAttribute("currentuser", currentUser);
+        model.addAttribute("rolesDTO", rolesDTO.toString());
         model.addAttribute("listOfUsers", users);
+        model.addAttribute("user", user);
+        model.addAttribute("newuser", newuser);
         return "/users/home";
     }
 
@@ -84,7 +101,9 @@ public class AdminController {
     }
 
     @PostMapping(value = "/update")
-    public String updateUser(@ModelAttribute User user, String roleDTO, String newPassword) {
+    public String updateUser(User user, String roleDTO, String newPassword) {
+
+        System.out.println("id" + user.getId() + user.getFirstName() + roleDTO + newPassword);
         setNewRoles(user, roleDTO);
         if (newPassword != "") {
             user.setPassword(passwordEncoder.encode(newPassword));

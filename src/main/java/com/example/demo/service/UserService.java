@@ -11,7 +11,7 @@ public interface UserService {
     void deleteUserById(Long id);
     List<com.example.demo.model.User> getAllUsers();
     void updateUser(com.example.demo.model.User user);
-   // com.example.demo.model.User getUserByUserName(String userName);
+    User getUserByUserName(String username);
     User getUserById(Long id);
 
 }
