@@ -62,21 +62,13 @@ public class AdminController {
               rolesDTO.append(role.getRole().substring(5) + " ");
         }
         User user = new User();
-        User newuser = new User();
         model.addAttribute("currentuser", currentUser);
         model.addAttribute("rolesDTO", rolesDTO.toString());
         model.addAttribute("listOfUsers", users);
         model.addAttribute("user", user);
-        model.addAttribute("newuser", newuser);
         return "/users/home";
     }
 
-    @GetMapping(value = "/create")
-    public String createUser(Model create_model) {
-        User user = new User();
-        create_model.addAttribute("user", user);
-        return "/users/create";
-    }
 
     @PostMapping(value = "/createUser")
     public String createUser(User user, String role) {
@@ -93,17 +85,8 @@ public class AdminController {
     }
 
 
-    @GetMapping(value = "/updateuser")
-    public String updateUser(@RequestParam(value = "id", required = false) Long id, Model model) {
-        User user = service.getUserById(id);
-        model.addAttribute("user", user);
-        return "users/update";
-    }
-
     @PostMapping(value = "/update")
     public String updateUser(User user, String roleDTO, String newPassword) {
-
-        System.out.println("id" + user.getId() + user.getFirstName() + roleDTO + newPassword);
         setNewRoles(user, roleDTO);
         if (newPassword != "") {
             user.setPassword(passwordEncoder.encode(newPassword));
