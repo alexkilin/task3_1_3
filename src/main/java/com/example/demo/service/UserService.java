@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-
 import com.example.demo.model.User;
-
 import java.util.List;
 
 public interface UserService {
@@ -12,5 +10,4 @@ public interface UserService {
     void updateUser(com.example.demo.model.User user);
     User getUserByUserName(String username);
     User getUserById(Long id);
-
 }

@@ -13,19 +13,25 @@
 
 
 <div class="container-fluid">
+
+
     <div class="row">
-        <div class="col-md-8" style="color:white; background-color: black">
+
+        <div class="col-md-11" style="color:white; background-color: black">
+                <ul class="nav">
                 <strong class="text-left" th:text="${currentuser.email}"></strong>
-            <normal th:text="' with roles: ' + ${rolesDTO}"></normal>
+                <normal th:text="' with roles: ' + ${rolesDTO}"></normal>
+                </ul>
+            </div>
 
-        </div>
+            <div class="col-md-1" style="color:white; background-color: black">
+                <ul class="nav">
+                    <a  class="text-right" style="color:white; background-color: black" href="/logout">Logout</a>
+                </ul>
+            </div>
 
-        <div class="col-md-4" style="color:white; background-color: black">
-
-            <div class="text-right"> <a  style="color:white; background-color: black" href="/logout">Logout</a></div>
-
-        </div>
     </div>
+
     <div class="row">
         <div class="col-md-2" >
             <ul class="nav nav-pills flex-column">
