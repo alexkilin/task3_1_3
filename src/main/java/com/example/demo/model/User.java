@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -34,14 +35,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Transient
-    transient private String passwordConfirm;
-
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles=new HashSet<>();
+
+//    @Transient
+//    transient private String[] roles_DTO;
 
 
     public User() {}
@@ -65,6 +66,31 @@ public class User implements UserDetails {
         this.roles = roles;
 
     }
+
+
+    public User(Long id, String firstName, String lastName, int age, String email, String username, String password
+    //        , Object[] roles
+    ) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+
+     //   this.roles = new HashSet<>();
+
+//        for (int i = 0; i < roles.length ; i++) {
+//            if (roles[i].id == "ROLE_USER") {
+//                this.roles.add(new Role(2L, "ROLE_USER"));
+//            }
+//            if (roles[i].id == "ROLE_ADMIN") {
+//                this.roles.add(new Role(1L, "ROLE_ADMIN"));
+//            }
+//        }
+    }
+
 
     public Long getId() {
         return id;
@@ -153,9 +179,32 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+
+//    public void setRoles(String[] roles) {
+//
+//      //  this.roles = new HashSet<>();
+//
+//        for (int i = 0; i < roles.length ; i++) {
+//            if (roles[i]=="ROLE_USER") {
+//                this.roles.add(new Role(2L, "ROLE_USER"));
+//            }
+//            if (roles[i]=="ROLE_ADMIN") {
+//                this.roles.add(new Role(1L, "ROLE_ADMIN"));
+//            }
+//        }
+//
+//    }
+
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-
+//    public String [] getRoles_DTO() {
+//        return roles_DTO;
+//    }
+//
+//    public void setRoles_DTO(String [] role_DTO) {
+//        this.roles_DTO = role_DTO;
+//    }
 }

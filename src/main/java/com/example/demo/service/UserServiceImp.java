@@ -30,7 +30,7 @@ public class UserServiceImp implements UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.getOne(id);
+        return userRepository.findById(id).get();
     }
 
     @Transactional
