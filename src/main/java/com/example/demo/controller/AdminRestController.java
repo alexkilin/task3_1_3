@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ServiceResponse;
+//import com.example.demo.dto.ServiceResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,8 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
     service.addUser(user);
-    ServiceResponse<User> response = new ServiceResponse<User>("success", user);
-    return new ResponseEntity<Object>(response, headers, HttpStatus.OK);
+   // ServiceResponse<User> response = new ServiceResponse<User>("success", user);
+    return ResponseEntity.ok(user);
 
 }
 
@@ -56,14 +56,13 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
         service.updateUser(user);
         User updatedUser = service.getUserById(user.getId());
 
-        ServiceResponse<User> response = new ServiceResponse<User>("success", updatedUser);
-        return new ResponseEntity<Object>(response, headers, HttpStatus.OK);
+       // ServiceResponse<User> response = new ServiceResponse<User>("success", updatedUser);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @GetMapping (value = "{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
               User user = service.getUserById(id);
-              System.out.println(user);
               return ResponseEntity.ok(user);
         }
 
@@ -79,16 +78,16 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
 	@RequestMapping (value = "/getUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Object> getAll() {
         List<User> users = service.getAllUsers();
-        ServiceResponse<List<User>> response = new ServiceResponse<>("success", users);
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
+//        ServiceResponse<List<User>> response = new ServiceResponse<>("success", users);
+        return ResponseEntity.ok(users);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") Long id) {
         service.deleteUserById(id);
         List<User> users = service.getAllUsers();
-        ServiceResponse<List<User>> response = new ServiceResponse<>("success", users);
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
+//        ServiceResponse<List<User>> response = new ServiceResponse<>("success", users);
+        return ResponseEntity.ok (users);
 
     }
 

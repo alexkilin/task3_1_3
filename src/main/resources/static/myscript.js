@@ -15,7 +15,7 @@ function ajaxGetAll() {
         url: "/admin/getUsers",
         success: function (result) {
             $("#userTable > tbody").empty();
-            $.each(result.data,
+            $.each(result,
                 function (i, user) {
                     var newRows =
                         "<tr>" +
@@ -88,11 +88,7 @@ function ajaxPost() {
         data: JSON.stringify(formData),
         dataType: 'json',
         success: function (result) {
-            if (result.status == "success") {
                 ajaxGetAll();
-            } else {
-                $("#postResultDiv").html("<strong>Error</strong>");
-            }
             console.log(result);
         },
         error: function (e) {

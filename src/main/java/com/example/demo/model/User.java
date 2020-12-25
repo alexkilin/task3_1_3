@@ -1,8 +1,6 @@
 package com.example.demo.model;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
@@ -41,9 +39,6 @@ public class User implements UserDetails {
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles=new HashSet<>();
 
-//    @Transient
-//    transient private String[] roles_DTO;
-
 
     public User() {}
 
@@ -79,16 +74,6 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
 
-     //   this.roles = new HashSet<>();
-
-//        for (int i = 0; i < roles.length ; i++) {
-//            if (roles[i].id == "ROLE_USER") {
-//                this.roles.add(new Role(2L, "ROLE_USER"));
-//            }
-//            if (roles[i].id == "ROLE_ADMIN") {
-//                this.roles.add(new Role(1L, "ROLE_ADMIN"));
-//            }
-//        }
     }
 
 
@@ -180,31 +165,9 @@ public class User implements UserDetails {
     }
 
 
-//    public void setRoles(String[] roles) {
-//
-//      //  this.roles = new HashSet<>();
-//
-//        for (int i = 0; i < roles.length ; i++) {
-//            if (roles[i]=="ROLE_USER") {
-//                this.roles.add(new Role(2L, "ROLE_USER"));
-//            }
-//            if (roles[i]=="ROLE_ADMIN") {
-//                this.roles.add(new Role(1L, "ROLE_ADMIN"));
-//            }
-//        }
-//
-//    }
-
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-//    public String [] getRoles_DTO() {
-//        return roles_DTO;
-//    }
-//
-//    public void setRoles_DTO(String [] role_DTO) {
-//        this.roles_DTO = role_DTO;
-//    }
 }

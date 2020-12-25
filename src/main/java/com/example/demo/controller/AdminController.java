@@ -21,7 +21,7 @@ public class AdminController {
 
     @GetMapping(value="/home")
     public String homepage(){
-        return "/users/home";
+        return "/users/admin-page";
     }
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage() {
