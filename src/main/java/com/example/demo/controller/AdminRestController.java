@@ -1,11 +1,8 @@
 package com.example.demo.controller;
-
-//import com.example.demo.dto.ServiceResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,7 +34,6 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
     service.addUser(user);
-   // ServiceResponse<User> response = new ServiceResponse<User>("success", user);
     return ResponseEntity.ok(user);
 
 }
@@ -56,7 +52,6 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
         service.updateUser(user);
         User updatedUser = service.getUserById(user.getId());
 
-       // ServiceResponse<User> response = new ServiceResponse<User>("success", updatedUser);
         return ResponseEntity.ok(updatedUser);
     }
 
@@ -78,7 +73,6 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
 	@RequestMapping (value = "/getUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Object> getAll() {
         List<User> users = service.getAllUsers();
-//        ServiceResponse<List<User>> response = new ServiceResponse<>("success", users);
         return ResponseEntity.ok(users);
     }
 
@@ -86,7 +80,6 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
     public ResponseEntity<Object> deleteUser(@PathVariable("id") Long id) {
         service.deleteUserById(id);
         List<User> users = service.getAllUsers();
-//        ServiceResponse<List<User>> response = new ServiceResponse<>("success", users);
         return ResponseEntity.ok (users);
 
     }
