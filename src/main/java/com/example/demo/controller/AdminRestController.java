@@ -1,8 +1,8 @@
 package com.example.demo.controller;
+
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,8 +28,6 @@ public class AdminRestController {
 @RequestMapping(value = "/saveUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public ResponseEntity<Object> createUser(@RequestBody User user) {
 
-    // как используется?????
-    HttpHeaders headers = new HttpHeaders();
     if (user.getPassword() != "") {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
@@ -39,10 +37,7 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
 }
 
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Object> updateUser(@RequestBody User user) {
-
-        // как используется?????
-        HttpHeaders headers = new HttpHeaders();
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
 
         if (user.getPassword() != "") {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -71,13 +66,13 @@ public ResponseEntity<Object> createUser(@RequestBody User user) {
 
 
 	@RequestMapping (value = "/getUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Object> getAll() {
+    public ResponseEntity <List<User>> getAll() {
         List<User> users = service.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Object> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity <List<User>> deleteUser(@PathVariable("id") Long id) {
         service.deleteUserById(id);
         List<User> users = service.getAllUsers();
         return ResponseEntity.ok (users);
