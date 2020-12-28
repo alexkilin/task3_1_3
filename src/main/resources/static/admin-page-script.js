@@ -18,15 +18,26 @@ function ajaxGetAll() {
             $.each(result,
                 function (i, user) {
                     var newRows =
-                        `<tr><td>${user.id}</td><td>${user.firstName}</td><td>${user.lastName}</td>` +
-                        `<td>${user.age}</td><td>${user.email}</td><td>${user.username}</td><td>`;
+                           `<tr>
+                            <td>${user.id}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                            <td>${user.age}</td>
+                            <td>${user.email}</td>
+                            <td>${user.username}</td>
+                            <td>`;
                     $.each(user.roles, function (i, role) {
-                        newRows = newRows +`<normal>${role.role.substring(5)}</normal>` + " "
+                        newRows = newRows +`<normal>${role.role.substring(5)} </normal>`
                     })
-                    newRows = newRows + `</td><td><div class=\"btn btn-info\" data-toggle=\"modal\" ` +
-                        `data-target=\"#myModal\" onclick=\"getUser(${user.id})\">Update</div></td>` +
-                        `<td><div class=\"btn btn-danger\"  data-toggle=\"modal\" data-target=\"#myModalDelete\" ` +
-                        `onclick=\"getUserforDelete(${user.id})\">Delete</div></td></tr>`;
+                    newRows = newRows +
+                        `</td>
+                            <td>
+                                <div class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="getUser(${user.id})">Update</div>
+                            </td>
+                            <td>
+                                <div class="btn btn-danger"  data-toggle="modal" data-target="#myModalDelete" onclick="getUserforDelete(${user.id})">Delete</div>
+                            </td>
+                        </tr>`;
                     $('#getResultTable ').append(newRows)
                 });
             console.log("Success: ", result);
